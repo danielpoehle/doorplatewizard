@@ -18,7 +18,7 @@
     <script src="app.js"></script>
   </head>
 
-  <body ng-app="BEP-Timer" ng-controller="ReportsController as reportList">
+  <body ng-app="DoorPlate-Wizard" ng-controller="PlateController as maList">
     <div class="container-fluid">
         <div class="row">
           <div class="page-header col-md-9">
@@ -40,12 +40,13 @@
               <h4>Neue Liste für Türschilder einlesen</h4>
               <div class="col-md-6">
                 
-                <input type="file" class="form-control" ng-model="maList" accept=".csv" placeholder="Liste auswählen">
+                <input type="file" class="form-control" ng-model="maList.Filename" accept=".csv" placeholder="Liste auswählen">
+                {{maList.Filename}}
 
-                <button type="button" class="btn btn-primary" ng-click="reportList.addToList(reportList.ZNr);">
+                <button type="button" class="btn btn-primary" ng-click="maList.readAndConvertFile(maList.Filename);">
                   <i class="fas fa-plus"></i>
                   Daten einlesen wandeln
-                </button>
+                </button>                
               </div>
               
               
@@ -55,6 +56,31 @@
                 
             <h3>Liste der Türschilder und Einträge</h3>
             <p>Hier wird die Liste dann angezeigt.</p>
+
+            <div ng-repeat="item in maList.items">
+              <div ng-repeat="(room, persons) in item">
+                <table class="table table-striped">
+                  <thead>
+                    <tr>
+                      <th>Raum</th>
+                      <th>Name</th>
+                      <th>OE</th>
+                      <th>Funktion</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr ng-repeat="s in persons">
+                      <td>{{room}}</td> 
+                      <td>{{s.name}}</td> 
+                      <td>{{s.oe}}</td> 
+                      <td>{{s.function}}</td>                    
+                    </tr>
+                  </tbody>
+                </table>
+              </div>         
+            </div>  
+            
+
           </div>
           <div class="col-md-3 col-md-offset-3">
             <div class="form-group">
