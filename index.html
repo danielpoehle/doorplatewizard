@@ -38,9 +38,9 @@
             <div class="form-group">
 
               <h4>Neue Liste für Türschilder einlesen</h4>
-              <div class="col-md-3">
+              <div class="col-md-6">
                 
-                <input type="text" class="form-control" ng-model="reportList.ZNr" placeholder="Liste auswählen">
+                <input type="file" class="form-control" ng-model="maList" accept=".csv" placeholder="Liste auswählen">
 
                 <button type="button" class="btn btn-primary" ng-click="reportList.addToList(reportList.ZNr);">
                   <i class="fas fa-plus"></i>
