@@ -57,8 +57,7 @@
             <h3>Liste der Türschilder und Einträge</h3>
             <p>Hier wird die Liste dann angezeigt.</p>
 
-            <div ng-repeat="item in maList.items">
-              <div ng-repeat="(room, persons) in item">
+            <div ng-repeat="item in maList.items">              
                 <table class="table table-striped">
                   <thead>
                     <tr>
@@ -69,15 +68,15 @@
                     </tr>
                   </thead>
                   <tbody>
-                    <tr ng-repeat="s in persons">
-                      <td>{{room}}</td> 
+                    <tr ng-repeat="s in item.persons">
+                      <td>{{item.room}}</td> 
                       <td>{{s.name}}</td> 
                       <td>{{s.oe}}</td> 
                       <td>{{s.function}}</td>                    
                     </tr>
                   </tbody>
                 </table>
-              </div>         
+              <br>         
             </div>  
             
 

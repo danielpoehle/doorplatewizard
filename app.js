@@ -28,14 +28,16 @@
   
       maList.items = [
         {
-            "Room1": [
+            room: "SB342",
+            persons: [
                 {name: "DukSoftware", oe: "NMF32", function: "f2"},
                 {name: "DukSoftware2", oe: "NPB2", function: ""},
                 {name: "DukSoftware3", oe: "NFC3", function: "f3"}
             ]
         },
         {
-            "Room3": [
+            room: "Room3",
+            persons: [
                 {name: "Tingerlee", oe: "NMF1", function: ""},
                 {name: "Tingerloo", oe: "NMF13", function: "f4"}
             ]
