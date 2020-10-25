@@ -26,7 +26,8 @@
         //reportList.ZNr = '';
       };
   
-      maList.items = [
+      maList.items = {
+        rooms: [
         {
             room: "SB342",
             persons: [
@@ -42,7 +43,9 @@
                 {name: "Tingerloo", oe: "NMF13", function: "f4"}
             ]
         }
-      ]
+      ]}
+
+      //maList.items = []
   
       maList.getCSV = function(){
         //console.log(fileName + " fileName parameter");
