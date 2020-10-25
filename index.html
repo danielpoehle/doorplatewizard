@@ -45,13 +45,18 @@
               <h4>Neue Liste für Türschilder einlesen</h4>
               <div class="col-md-6">
                 
-                <input type="file" class="form-control" ng-model="maList.Filename" accept=".csv" placeholder="Liste auswählen">
-                {{maList.Filename}}
+                <input type="file" id="list" class="form-control" ng-model="maList.Filename" accept=".csv" placeholder="Liste auswählen">
 
                 <button type="button" class="btn btn-primary" ng-click="maList.readAndConvertFile(maList.Filename);">
                   <i class="fas fa-plus"></i>
                   Daten einlesen wandeln
-                </button>                
+                </button>
+              </div>
+
+              <h4>Neues Musterdokument für Türschilder einlesen</h4>
+              <div class="col-md-6">
+                
+                <input type="file" id="template" class="form-control" ng-model="maList.Template" accept=".docx" placeholder="Template auswählen">
               </div>
               
               
