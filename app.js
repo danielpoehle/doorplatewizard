@@ -27,34 +27,39 @@
       };
   
       maList.items = {
-        rooms: [
+        "rooms": [
         {
-            room: "SB342",
-            persons: [
-                {name: "DukSoftware", oe: "NMF32", function: "f2"},
-                {name: "DukSoftware2", oe: "NPB2", function: ""},
-                {name: "DukSoftware3", oe: "NFC3", function: "f3"}
+            "room": "SB342",
+            "persons": [
+                {"name": "DukSoftware", "oe": "NMF32", "function": "f2"},
+                {"name": "DukSoftware2", "oe": "NPB2", "function": ""},
+                {"name": "DukSoftware3", "oe": "NFC3", "function": "f3"}
             ]
         },
         {
-            room: "Room3",
-            persons: [
-                {name: "Tingerlee", oe: "NMF1", function: ""},
-                {name: "Tingerloo", oe: "NMF13", function: "f4"}
+            "room": "Room3",
+            "persons": [
+                {"name": "Tingerlee", "oe": "NMF1", "function": ""},
+                {"name": "Tingerloo", "oe": "NMF13", "function": "f4"}
             ]
         }
       ]}
 
       //maList.items = []
   
-      maList.getCSV = function(){
-        //console.log(fileName + " fileName parameter");
-        //let f = ReportTimeService.getDateTime() + '_BEP-Report.csv';
-        //let newchar = '-';
-        //f = f.split(':').join(newchar);
-        //console.log(f);
-  
-        //ReportTimeService.downloadCSV({filename: f});
+      maList.generateDOCX = function(){
+        //console.log(maList.items);
+        var loadFile = function(url,callback) {
+          PizZipUtils.getBinaryContent(url,callback);
+        }
+      loadFile("docx/doorplate_fpl.docx", function(err, content) {
+          if (err) { throw err };
+          doc = new Docxtemplater(content);
+          doc.setData(maList.items); //set the templateVariables
+          doc.render(); //apply them (replace all occurences of {first_name} by Hipp, ...)
+          out=doc.getZip().generate({type:"blob"}); //Output the document using Data-URI
+          saveAs(out,"output.docx");
+      });
       };
   
       maList.editZNr = function(itemID, znr){
