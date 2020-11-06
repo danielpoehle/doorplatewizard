@@ -15,37 +15,65 @@
   
       maList.Filename = '';
       maList.today = new Date().toLocaleDateString('de-DE', options);
-  
-      
-  
-  
-      maList.addToList = function(znr){
-        //console.log(type + " clicked add to List");
-        //console.log(lineFrame[0]);
-        //ReportTimeService.addReportItem(znr);
-        //reportList.ZNr = '';
-      };
-  
-      maList.items = {
-        "rooms": [
-        {
-            "room": "SB342",
-            "persons": [
-                {"name": "DukSoftware", "oe": "NMF32", "function": "f2"},
-                {"name": "DukSoftware2", "oe": "NPB2", "function": ""},
-                {"name": "DukSoftware3", "oe": "NFC3", "function": "f3"}
-            ]
-        },
-        {
-            "room": "Room3",
-            "persons": [
-                {"name": "Tingerlee", "oe": "NMF1", "function": ""},
-                {"name": "Tingerloo", "oe": "NMF13", "function": "f4"}
-            ]
-        }
-      ]}
 
-      //maList.items = []
+      maList.items = {rooms: []};
+
+      $(document).ready(function() {
+        $('#list').bind('change', handleDialog);
+      });
+
+      function handleDialog(event) {
+        
+        let files = event.target.files;
+        let file = files[0];
+        
+
+        let reader = new FileReader();
+        reader.readAsText(file);
+        reader.onload = function(event){
+          let csv = event.target.result;          
+          let data = $.csv.toObjects(csv, {separator: ";"});
+          
+          let rooms = data.map(x => x.room);
+          let unique_rooms = rooms.filter((item, i, ar) => ar.indexOf(item) === i);
+
+          unique_rooms.forEach(function(element, index){            
+            let persons = data.filter(x => x.room === element); 
+            //console.log(persons);
+            maList.items.rooms.push({
+              "room": element,
+              "persons": persons
+            });            
+          });              
+        }
+      }
+  
+      //console.log(maList.items);
+      maList.readAndConvertFile = function(){
+        
+      }
+  
+  
+       
+      // maList.items = {
+      //   "rooms": [
+      //   {
+      //       "room": "SB342",
+      //       "persons": [
+      //           {"name": "DukSoftware", "oe": "NMF32", "function": "f2"},
+      //           {"name": "DukSoftware2", "oe": "NPB2", "function": ""},
+      //           {"name": "DukSoftware3", "oe": "NFC3", "function": "f3"}
+      //       ]
+      //   },
+      //   {
+      //       "room": "Room3",
+      //       "persons": [
+      //           {"name": "Tingerlee", "oe": "NMF1", "function": ""},
+      //           {"name": "Tingerloo", "oe": "NMF13", "function": "f4"}
+      //       ]
+      //   }
+      // ]}
+
   
       maList.generateDOCX = function(){
         //console.log(maList.items);
@@ -87,13 +115,7 @@
            }) //Output the document using Data-URI
            saveAs(out,"output.docx")
         };        
-      };
-  
-      maList.editZNr = function(itemID, znr){
-        //ReportTimeService.editZNr(itemID, znr);
-        //reportList.ZNr = '';
-      };
-  
+      }; 
   
     }
   
